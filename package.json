@@ -1,0 +1,18 @@
+{
+  "name": "ts-trait",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/chai": "^3.4.35",
+    "@types/mocha": "^2.2.40",
+    "chai": "^3.5.0"
+  },
+  "scripts": {
+    "test": "mocha compile",
+    "dev-es5": "tsc -p tsconfig/dev.es5.json"
+  },
+  "author": "",
+  "license": "ISC"
+}
