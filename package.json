@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "build/index.js",
-  "dependencies": {},
+  "dependencies": {
+    "tslib": "^1.6.0"
+  },
   "devDependencies": {
     "@types/chai": "^3.4.35",
     "@types/mocha": "^2.2.40",
