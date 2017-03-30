@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "declaration": true,
+    "removeComments": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "strictNullChecks": false,
+    "skipLibCheck": false,
+    "importHelpers": true,
+    "lib": [
+      "es6"
+    ],
+    "target": "es6",
+    "module": "commonjs",
+    "rootDir": "src",
+    "outDir": "build",
+    "moduleResolution": "node"
+  },
+  "include": [
+    "typings/private.d.ts",
+    "node_modules/@types/**/*.d.ts",
+    "node_modules/typescript/lib/lib.es6.d.ts",
+    "src/**/*.ts"
+  ]
+}
