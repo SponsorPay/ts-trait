@@ -15,4 +15,4 @@ Traits / mixins for TypeScript &amp; JavaScript
 
 `npm run test`
 
-Adding instanceOf-like support for https://www.typescriptlang.org/docs/handbook/mixins.html
+Adding instanceof-like support for https://www.typescriptlang.org/docs/handbook/mixins.html
