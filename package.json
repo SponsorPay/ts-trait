@@ -10,7 +10,7 @@
     "chai": "^3.5.0"
   },
   "scripts": {
-    "test": "mocha compile",
+    "test": "mocha build/test",
     "build": "tsc"
   },
   "author": "",
