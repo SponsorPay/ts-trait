@@ -9,5 +9,6 @@ describe('smart object', function () {
     (smart instanceof SmartBase).should.eq(true);
     // (smart instanceof EventEmitter).should.eq(true);
     ((<Trait>EventEmitter).hasInstance(smart)).should.eq(true);
+    (smart.on === EventEmitter.prototype.on).should.eq(true);
   })
 });
