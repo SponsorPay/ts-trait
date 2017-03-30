@@ -8,6 +8,6 @@ describe('smart object', function () {
     (smart instanceof SmartObject).should.eq(true);
     (smart instanceof SmartBase).should.eq(true);
     // (smart instanceof EventEmitter).should.eq(true);
-    ((<Trait>EventEmitter).isInstanceOf(smart)).should.eq(true);
+    ((<Trait>EventEmitter).hasInstance(smart)).should.eq(true);
   })
 });

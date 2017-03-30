@@ -1,25 +1,24 @@
-export type Constructor = new(...args: any[]) => any;
+import {CounterByName} from "./util/counter.by.name";
+const counterByName = new CounterByName();
 
 export type Trait = Function & {
   new(...args: any[]): any;
-  isInstanceOf?(instance: any): boolean;
-  $$derived?: {[name: string]: Constructor[]};
+  hasInstance?(instance: any): boolean;
+  $$name?: string;
 }
 
-const CONSTRUCTOR = 'constructor';
-
-function getDerivedArray(baseCtor: Trait, name: string) {
-  const $$derived = (baseCtor.$$derived || (baseCtor.$$derived = {}));
-  return ($$derived[name] || ($$derived[name] = []))
+export type Derived = Function & {
+  $is?: {[name: string]: boolean};
 }
 
-export function isInstanceOf(instance: any) {
-  const _this: Trait = this;
-  return _this.$$derived[instance.constructor.name].some(ctor => instance instanceof ctor);
+export function hasInstance(instance: any) {
+  const base: Trait = this;
+  const derived: Derived = instance && instance.constructor;
+  return !!derived && derived.$is[base.$$name];
 }
 
 const assignMethodNoOverride = (derivedCtor: any, baseCtor: Trait) => (name: string) => {
-  if (name !== CONSTRUCTOR) {
+  if (name !== 'constructor') {
     if (!derivedCtor.prototype[name]) {
       derivedCtor.prototype[name] = baseCtor.prototype[name];
     } else {
@@ -28,11 +27,11 @@ const assignMethodNoOverride = (derivedCtor: any, baseCtor: Trait) => (name: str
   }
 };
 
-function register(derivedCtor: any, baseCtor: Trait) {
-  console.log(`register ${derivedCtor.name} in ${baseCtor.name}`);
+function register(derivedCtor: Derived, baseCtor: Trait) {
   Object.getOwnPropertyNames(baseCtor.prototype).forEach(assignMethodNoOverride(derivedCtor, baseCtor));
-  getDerivedArray(baseCtor, derivedCtor.name).push(derivedCtor);
-  baseCtor.isInstanceOf = isInstanceOf.bind(baseCtor);
+  baseCtor.$$name = counterByName.generate(baseCtor.name);
+  (derivedCtor.$is || (derivedCtor.$is = {}))[baseCtor.$$name] = true;
+  baseCtor.hasInstance = hasInstance.bind(baseCtor);
 }
 
 export function applyMixins(derivedCtor: any, baseCtors: Trait[]) {
@@ -40,4 +39,3 @@ export function applyMixins(derivedCtor: any, baseCtors: Trait[]) {
     register(derivedCtor, baseCtor);
   });
 }
-
