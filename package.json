@@ -2,7 +2,7 @@
   "name": "ts-trait",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
   "dependencies": {},
   "devDependencies": {
     "@types/chai": "^3.4.35",
