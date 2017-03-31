@@ -12,6 +12,10 @@ export class SmartBase {
 }
 
 export class SmartObject extends SmartBase implements IEventEmitter {
+
+  // EventEmitter declarations - now SmartObject class knows that "all" property is used by EventEmitter
+  all: {[type: string]: EventHandler[]};
+
   constructor() {
     super();
     EventEmitter.Init.apply(this, arguments);

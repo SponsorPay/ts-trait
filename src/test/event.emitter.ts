@@ -1,6 +1,7 @@
 // heavily based on https://github.com/developit/mitt
 
 export interface IEventEmitter {
+  all: {[type: string]: EventHandler[]};
   on(type: string, handler: EventHandler): void;
   off(type: string, handler: EventHandler): void;
   emit(type: string, evt: any): void;
