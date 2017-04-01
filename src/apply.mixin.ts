@@ -29,7 +29,7 @@ const assignMethodNoOverride = (derivedCtor: any, baseCtor: Trait) => (name: str
 
 function register(derivedCtor: Derived, baseCtor: Trait) {
   Object.getOwnPropertyNames(baseCtor.prototype).forEach(assignMethodNoOverride(derivedCtor, baseCtor));
-  baseCtor.$$name = counterByName.generate(baseCtor.name);
+  baseCtor.$$name = baseCtor.$$name || counterByName.generate(baseCtor.name);
   (derivedCtor.$is || (derivedCtor.$is = {}))[baseCtor.$$name] = true;
   baseCtor.hasInstance = hasInstance.bind(baseCtor);
 }

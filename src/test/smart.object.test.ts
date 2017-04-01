@@ -10,5 +10,6 @@ describe('smart object', function () {
     // (smart instanceof EventEmitter).should.eq(true);
     ((<Trait>EventEmitter).hasInstance(smart)).should.eq(true);
     (smart.on === EventEmitter.prototype.on).should.eq(true);
+    smart.all.should.deep.eq({});
   })
 });
