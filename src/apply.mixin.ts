@@ -21,8 +21,6 @@ const assignMethodNoOverride = (derivedCtor: any, baseCtor: Trait) => (name: str
   if (name !== 'constructor') {
     if (!derivedCtor.prototype[name]) {
       derivedCtor.prototype[name] = baseCtor.prototype[name];
-    } else {
-      console.warn(`Derived class "${derivedCtor.name}" already has method "${name}", please use "super" strategy`);
     }
   }
 };

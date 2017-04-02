@@ -21,8 +21,12 @@ export class SmartObject extends SmartBase implements IEventEmitter {
     EventEmitter.Init.apply(this, arguments);
   }
 
+  // override EventEmitter.on, use super
+  on(type: string, handler: EventHandler){
+    EventEmitter.prototype.on.apply(this, arguments); // super
+    console.log('SmartObject.on');
+  }
   // EventEmitter declarations
-  on: (type: string, handler: EventHandler) => void;
   off: (type: string, handler: EventHandler) => void;
   emit: (type: string, evt: any) => void;
 }
