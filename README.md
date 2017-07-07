@@ -7,12 +7,6 @@ Traits / mixins for TypeScript &amp; JavaScript
 
 `npm install`
 
-`npm install -g typescript mocha`
-
-`npm link typescript`
-
-`npm run build`
-
 `npm run test`
 
 Adding instanceof-like support for https://www.typescriptlang.org/docs/handbook/mixins.html

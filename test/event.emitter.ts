@@ -1,22 +1,28 @@
-// heavily based on https://github.com/developit/mitt
+import {Trait} from "../src/trait";
 
 export interface IEventEmitter {
-  all: {[type: string]: EventHandler[]};
+  all: { [type: string]: EventHandler[] };
   on(type: string, handler: EventHandler): void;
   off(type: string, handler: EventHandler): void;
   emit(type: string, evt: any): void;
 }
 export type EventHandler = (event?: any) => void;
-export class EventEmitter implements IEventEmitter {
+
+export interface EventEmitter extends IEventEmitter, Trait {
+
+}
+
+// heavily based on https://github.com/developit/mitt
+export class EventEmitter extends Trait {
   // static [Symbol.hasInstance](instance: any) :boolean {
   //   return (<Trait>EventEmitter).hasInstance(instance);
   // }
 
-  static Init(...args: any[]) {
-    (this as any).all = {};
+  init() {
+    this.all = {};
   }
 
-  all: {[type: string]: EventHandler[]};
+  all: { [type: string]: EventHandler[] };
 
   on(type: string, handler: EventHandler) {
     console.log('EventEmitter on');

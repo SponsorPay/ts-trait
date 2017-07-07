@@ -9,10 +9,14 @@
   "devDependencies": {
     "@types/chai": "^3.4.35",
     "@types/mocha": "^2.2.40",
-    "chai": "^3.5.0"
+    "@types/node": "^8.0.9",
+    "chai": "^3.5.0",
+    "mocha": "^3.4.2",
+    "ts-node": "^3.2.0",
+    "typescript": "^2.4.1"
   },
   "scripts": {
-    "test": "mocha build/test",
+    "test": "mocha test/**/*.ts --require ts-node/register",
     "build": "tsc"
   },
   "author": "",
