@@ -8,13 +8,13 @@ export class SmartBase {
   constructor() {
     this.someLogic = 'someLogic';
   }
-
 }
 
 export interface SmartObject extends EventEmitter {
 
 }
 
+@applyMixins([EventEmitter])
 export class SmartObject extends SmartBase {
   constructor() {
     super();
@@ -27,5 +27,3 @@ export class SmartObject extends SmartBase {
     console.log('SmartObject.on');
   }
 }
-
-applyMixins(SmartObject, [EventEmitter]);

@@ -2,8 +2,13 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
+    "rootDir": "src",
+    "outDir": "build",
     "sourceMap": true,
     "noImplicitAny": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "declaration": true
   }
 }

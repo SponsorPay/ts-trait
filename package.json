@@ -4,7 +4,7 @@
   "description": "",
   "main": "build/index.js",
   "dependencies": {
-    "tslib": "^1.6.0"
+    "tslib": "^1.8.1"
   },
   "devDependencies": {
     "@types/chai": "^3.4.35",
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "mocha test/**/*.ts --require ts-node/register",
-    "build": "tsc"
+    "build": "tsc -p tsconfig.production.json"
   },
   "author": "",
   "license": "ISC"

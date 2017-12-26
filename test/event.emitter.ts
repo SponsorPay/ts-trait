@@ -25,7 +25,6 @@ export class EventEmitter extends Trait {
   all: { [type: string]: EventHandler[] };
 
   on(type: string, handler: EventHandler) {
-    console.log('EventEmitter on');
     (this.all[type] || (this.all[type] = [])).push(handler);
   }
 

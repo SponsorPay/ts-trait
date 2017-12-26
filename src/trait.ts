@@ -2,6 +2,7 @@ export interface TraitStatic {
   new(...args: any[]): any;
   hasInstance: (instance: any) => boolean;
   $name: string;
+  name: string;
 }
 
 export class Trait {

@@ -27,8 +27,10 @@ function register(derivedCtor: Derived, baseCtor: TraitStatic) {
   baseCtor.hasInstance = hasInstance.bind(baseCtor);
 }
 
-export function applyMixins(derivedCtor: any, baseCtors: TraitStatic[]) {
-  baseCtors.forEach(baseCtor => {
-    register(derivedCtor, baseCtor);
-  });
+export function applyMixins(baseCtors: TraitStatic[]) {
+  return (derivedCtor: any) => {
+    baseCtors.forEach(baseCtor => {
+      register(derivedCtor, baseCtor);
+    });
+  }
 }
