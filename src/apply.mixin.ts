@@ -1,5 +1,6 @@
 import {CounterByName} from "./util/counter.by.name";
 import {Trait, TraitStatic} from "./trait";
+
 const counterByName = new CounterByName();
 
 export type Derived = Function & {
@@ -9,19 +10,20 @@ export type Derived = Function & {
 export function hasInstance(instance: any) {
   const base: TraitStatic = this;
   const derived: Derived = instance && instance.constructor;
-  return derived && derived.$is && derived.$is[base.$name];
+  return derived != null && derived.$is != null && Boolean(derived.$is[base.$name]);
 }
 
-const assignMethodNoOverride = (derivedCtor: any, baseCtor: TraitStatic) => (name: string) => {
-  if (name !== 'constructor') {
-    if (!derivedCtor.prototype[name]) {
-      derivedCtor.prototype[name] = baseCtor.prototype[name];
+function register(derivedCtor: Derived, baseCtor: TraitStatic) {
+  const from = baseCtor.prototype
+  const to = derivedCtor.prototype
+  for (const name of Object.getOwnPropertyNames(from)) {
+    if (name !== 'constructor') {
+      const descriptor = Object.getOwnPropertyDescriptor(from, name)
+      if (descriptor != null && to[name] == null) {
+        Object.defineProperty(to, name, descriptor)
+      }
     }
   }
-};
-
-function register(derivedCtor: Derived, baseCtor: TraitStatic) {
-  Object.getOwnPropertyNames(baseCtor.prototype).forEach(assignMethodNoOverride(derivedCtor, baseCtor));
   baseCtor.$name = baseCtor.$name || counterByName.generate(baseCtor.name);
   (derivedCtor.$is || (derivedCtor.$is = {}))[baseCtor.$name] = true;
   baseCtor.hasInstance = hasInstance.bind(baseCtor);
@@ -29,8 +31,8 @@ function register(derivedCtor: Derived, baseCtor: TraitStatic) {
 
 export function applyMixins(baseCtors: any[]) {
   return (derivedCtor: any) => {
-    baseCtors.forEach(baseCtor => {
-      register(derivedCtor, baseCtor);
-    });
+    for (const baseCtor of baseCtors) {
+      register(derivedCtor, baseCtor)
+    }
   }
 }

@@ -10,9 +10,11 @@ describe('smart object', function () {
     (smart instanceof SmartBase).should.eq(true);
     // (smart instanceof EventEmitter).should.eq(true);
     EventEmitter.hasInstance(smart).should.eq(true);
+    EventEmitter.hasInstance({}).should.eq(false);
     (smart.off === EventEmitter.prototype.off).should.eq(true);
     smart.all.should.deep.eq({});
     smart.on('someEvent', () => {
     });
+    smart.events.should.eq(smart.all)
   })
 });

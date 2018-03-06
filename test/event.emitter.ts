@@ -38,4 +38,8 @@ export class EventEmitter extends Trait {
       handler(evt);
     });
   }
+
+  get events() {
+    return this.all
+  }
 }
