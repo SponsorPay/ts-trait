@@ -19,7 +19,7 @@ function register(derivedCtor: Derived, baseCtor: TraitStatic) {
   for (const name of Object.getOwnPropertyNames(from)) {
     if (name !== 'constructor') {
       const descriptor = Object.getOwnPropertyDescriptor(from, name)
-      if (descriptor != null && to[name] == null) {
+      if (descriptor != null && !to.hasOwnProperty(name)) {
         Object.defineProperty(to, name, descriptor)
       }
     }
