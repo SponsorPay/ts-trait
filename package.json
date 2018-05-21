@@ -3,7 +3,7 @@
   "version": "3.0.1",
   "description": "",
   "main": "build/index.js",
-  "types": "build/index.d.js",
+  "types": "build/index.d.ts",
   "files": [
     "build"
   ],
