@@ -1,3 +1,4 @@
+import {assignPropertyDescriptors} from "./assign"
 import {CounterByName} from "./util/counter.by.name";
 import {Trait, TraitStatic} from "./trait";
 
@@ -7,23 +8,15 @@ export type Derived = Function & {
   $is?: { [name: string]: boolean };
 }
 
-export function hasInstance(instance: any) {
-  const base: TraitStatic = this;
+export function hasInstance(this: TraitStatic, instance: any) {
   const derived: Derived = instance && instance.constructor;
-  return derived != null && derived.$is != null && Boolean(derived.$is[base.$name]);
+  return derived != null && derived.$is != null && Boolean(derived.$is[this.$name]);
 }
 
 function register(derivedCtor: Derived, baseCtor: TraitStatic) {
   const from = baseCtor.prototype
   const to = derivedCtor.prototype
-  for (const name of Object.getOwnPropertyNames(from)) {
-    if (name !== 'constructor') {
-      const descriptor = Object.getOwnPropertyDescriptor(from, name)
-      if (descriptor != null && !to.hasOwnProperty(name)) {
-        Object.defineProperty(to, name, descriptor)
-      }
-    }
-  }
+  assignPropertyDescriptors(to, from)
   baseCtor.$name = baseCtor.$name || counterByName.generate(baseCtor.name);
   (derivedCtor.$is || (derivedCtor.$is = {}))[baseCtor.$name] = true;
   baseCtor.hasInstance = hasInstance.bind(baseCtor);

@@ -8,21 +8,24 @@ export interface IEventEmitter {
 }
 export type EventHandler = (event?: any) => void;
 
-export interface EventEmitter extends IEventEmitter, Trait {
+export interface EventEmitter extends IEventEmitter {
 
 }
 
 // heavily based on https://github.com/developit/mitt
-export class EventEmitter extends Trait {
+export abstract class EventEmitter {
   // static [Symbol.hasInstance](instance: any) :boolean {
   //   return (<Trait>EventEmitter).hasInstance(instance);
   // }
+  static hasInstance: (instance: any) => boolean;
+  static $name: string;
+
 
   init() {
     this.all = {};
   }
 
-  all: { [type: string]: EventHandler[] };
+  abstract all: { [type: string]: EventHandler[] };
 
   on(type: string, handler: EventHandler) {
     (this.all[type] || (this.all[type] = [])).push(handler);
