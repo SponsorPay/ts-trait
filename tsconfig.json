@@ -1,11 +1,27 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
     "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "removeComments": true,
+    "noImplicitReturns": true,
+    "lib": [
+      "es5",
+      "es2015.collection",
+      "es2015.promise",
+      "es2015.core"
+    ],
+    "target": "es5",
+    "declaration": true,
+    "outDir": "build",
+    "jsx": "react",
     "importHelpers": true,
-    "declaration": true
-  }
+    "skipLibCheck": true,
+    "strict": true,
+    "sourceMap": true,
+    "moduleResolution": "node"
+  },
+  "include": [
+    "src/**/*.ts*", "test/**/*.ts*"
+  ]
 }
