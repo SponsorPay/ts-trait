@@ -1,6 +1,6 @@
 {
   "name": "ts-trait",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "",
   "main": "build/index.js",
   "types": "build/index.d.ts",
