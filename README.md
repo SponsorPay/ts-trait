@@ -1,7 +1,7 @@
 # ts-trait
 Traits / mixins for TypeScript &amp; JavaScript
 
-`git clone https://github.com/kobiburnley/ts-trait`
+`git clone https://github.com/SponsorPay/ts-trait`
 
 `cd ts-trait`
 
