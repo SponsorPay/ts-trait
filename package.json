@@ -16,13 +16,15 @@
     "@types/node": "^8.0.9",
     "chai": "^3.5.0",
     "mocha": "^5.2.0",
+    "standard-version": "^8.0.0",
     "ts-node": "^3.2.0",
     "typescript": "^2.8.3"
   },
   "scripts": {
     "test": "mocha test/**/*.ts --require ts-node/register",
     "build": "rm -rf build && npm run compile",
-    "compile": "tsc -p tsconfig.production.json"
+    "compile": "tsc -p tsconfig.production.json",
+    "cd": "standard-version -m \"chore(release): %s [skip ci]\" && git push --follow-tags origin $CIRCLE_BRANCH && npm publish"
   },
   "repository": "https://github.com/kobiburnley/ts-trait",
   "author": "",

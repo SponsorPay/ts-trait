@@ -1,17 +1,35 @@
-version: 2.1
-orbs:
-  node: circleci/node@1.1.6
+version: 2
 jobs:
-  build-and-test:
-    executor:
-      name: node/default
+  build:
+    docker:
+      - image: circleci/node:lts
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "c5:d7:fb:20:04:74:c0:2f:36:32:83:b0:a3:e0:ab:bf"
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm test
+      - run:
+          name: Install
+          command: npm install
+      - run:
+          name: Compile
+          command: |
+            npm run compile
+      - run:
+          name: Test
+          command: |
+            npm test
+      - run:
+          name: Publish
+          command: |
+            git config --global user.email circleci@circleci.com
+            git config --global user.name CircleCI
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+            git add 'package.json' 'package-lock.json'
+            git diff-index --quiet --cached origin/$CIRCLE_BRANCH || (git commit -m 'Lock [skip ci]')
+            if [[ "$CIRCLE_BRANCH" = "master" ]] || [[ "$CIRCLE_BRANCH" =~ hotfix* ]]; then npm run cd; else git push origin $CIRCLE_BRANCH; fi
 workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
+  version: 2
+  build_and_publish:
+    jobs:
+      - build
